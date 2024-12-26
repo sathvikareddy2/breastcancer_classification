@@ -1,13 +1,16 @@
 # Breast Cancer Classification
 
 ## Overview
+Breast cancer is one of the most common forms of cancer worldwide, and early detection is essential for improving the survival rate of affected individuals. The ability to identify whether a tumor is benign or malignant through diagnostic measures can greatly assist medical professionals in making informed decisions for treatment. This project is an automated machine learning-based system designed to predict whether a breast cancer tumor is malignant or benign based on diagnostic features. The system uses a dataset containing various measurements related to tumor cells and applies machine learning algorithms to classify these tumors.
+
+## Primary Goal
 This project focuses on building a machine learning-based system to classify breast cancer tumors as malignant or benign. Using a dataset with features derived from breast mass measurements, four machine learning models were implemented:  
 - Logistic Regression (achieved the best accuracy)  
 - Support Vector Machine (SVM) (achieved the best accuracy)  
 - Random Forest  
 - Decision Tree  
 
-The top-performing models, Logistic Regression and SVM, were deployed using Flask.
+The top-performing models, Logistic Regression and SVM, Logistic Regression was deployed using Flask.
 
 ---
 
@@ -44,8 +47,8 @@ The dataset contains 30 features derived from breast mass measurements. These fe
 
 ## Technology Stack
 - **Programming Language**: Python  
-- **Web Framework**: Flask  
-- **Model Serialization**: Pickle  
+- **Web Framework**: Flask(for the user interface)
+- **Model Persistence**: Pickle (for saving and loading Logistic Regression model)  
 
 ---
 
@@ -104,6 +107,15 @@ The dataset contains 30 features derived from breast mass measurements. These fe
 
 ### Steps to Run the Project
 1. Clone the repository:
-   ```bash
+   bash
    git clone https://github.com/sathvikareddy2/breastcancer_classification.git
    cd your-repo
+2. Create a virtual environment and activate it:
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+3. Install the required dependencies:
+   pip install -r requirements.txt
+4. Run the Flask application:
+   python app.py
+5. Open your web browser and navigate to:
+   http://127.0.0.1:5000
