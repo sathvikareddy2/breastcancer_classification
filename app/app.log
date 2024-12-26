@@ -1,0 +1,2 @@
+2024-12-11 15:13:28,208 - ERROR - Failed to load model or scaler: [Errno 2] No such file or directory: 'scaler.pkl'
+2024-12-11 15:14:41,410 - ERROR - Failed to load model or scaler: [Errno 2] No such file or directory: 'scaler.pkl'

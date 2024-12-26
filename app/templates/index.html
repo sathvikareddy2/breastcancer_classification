@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tumor Classification</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #495057;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            position: relative;
+            overflow: hidden; /* Prevent scrolling when video is larger */
+        }
+
+        /* Video background */
+        .video-background {
+            position: absolute;   /* Position the video behind the content */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;   /* Ensures the video covers the entire screen */
+            z-index: -1;         /* Places the video behind the content */
+        }
+
+        /* Container styling for the form */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Slight transparency to blend with video */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;  /* Ensure content stays above the video */
+        }
+
+        /* Header styling */
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Form styling */
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #555;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            font-size: 1em;
+            padding: 12px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: #0056b3;
+        }
+
+        button {
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Result message styling */
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        /* Error message styling */
+        .error {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* Health tips styling */
+        .tips {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .tips h3 {
+            color: #007bff;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .tips ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            input[type="file"], button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video background -->
+    <video class="video-background" autoplay muted loop>
+        <source src="{{ url_for('static', filename='video/background.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <h1>Breast Cancer Classification</h1>
+        <form action="/classify" method="post" enctype="multipart/form-data">
+            <label for="file">Upload CSV file with 20 features:</label>
+            <input type="file" id="file" name="file" accept=".csv" required><br>
+            <button type="submit">Classify</button>
+        </form>
+        {% if classification_text %}
+        <div class="result">{{ classification_text }}</div>
+        {% endif %}
+        {% if health_tips %}
+        <div class="tips">
+            <h3>Health and Wellness Tips:</h3>
+            <ul>
+                {% for tip in health_tips %}
+                <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if error_text %}
+        <div class="error">{{ error_text }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
